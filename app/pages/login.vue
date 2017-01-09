@@ -1,8 +1,5 @@
 <template>
     <div class="hero">
-        <div class="hero-head">
-            <top-nav :expanded="expanded"></top-nav>
-        </div>
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">Login</h1>
@@ -31,7 +28,6 @@
     const topNav = require('~components/top-nav.vue')
 
     export default {
-        layout: 'blank',
         data () {
             return {
                 expanded: false,

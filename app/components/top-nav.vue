@@ -7,9 +7,15 @@
             <nuxt-link to="/about-me" class="nav-item">About Me</nuxt-link>
         </div>
         <div class="nav-center"></div>
-        <div :class="['nav-right', 'nav-menu', menuExpanded]">
-            <a @click="handle_logout" v-if="$store.state.current_user.username" class="nav-item">Logout</a>
-            <nuxt-link v-else to="/login" class="nav-item">Login</nuxt-link>
+        <div @click="handle_toggle_menu" :class="['nav-right', 'nav-menu', menuExpanded]">
+            <template v-if="$store.state.current_user.username">
+                <nuxt-link @click="handle_toggle_menu" to="/admin" class="nav-item">Admin</nuxt-link>
+                <a @click="handle_logout" class="nav-item">Logout</a>
+            </template>
+            <template v-else>
+                <nuxt-link @click="handle_toggle_menu" to="/login" class="nav-item">Login</nuxt-link>
+            </template>
+
         </div>
         <span class="nav-toggle" @click="handle_toggle_menu">
                 <span></span>
