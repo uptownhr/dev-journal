@@ -44,7 +44,7 @@
             handle_login () {
                 this.$store.dispatch('userLogin', {email: this.email, password: this.password})
                     .then( res => {
-                        this.$router.push('/admin')
+                        this.$router.push('/')
                     })
                     .catch( err => {
                         this.error = err.response.data.error
