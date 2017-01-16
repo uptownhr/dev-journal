@@ -29,30 +29,30 @@
 </template>
 
 <script>
-    const topNav = require('~components/top-nav.vue')
+  const topNav = require('~components/top-nav.vue')
 
-    export default {
-        data () {
-            return {
-                expanded: false,
-                email: '',
-                password: '',
-                error: null
-            }
-        },
-        methods: {
-            handle_login () {
-                this.$store.dispatch('userLogin', {email: this.email, password: this.password})
-                    .then( res => {
-                        this.$router.push('/')
-                    })
-                    .catch( err => {
-                        this.error = err.response.data.error
-                    })
-            }
-        },
-        components: {
-            'top-nav': topNav
-        }
+  export default {
+    data () {
+      return {
+        expanded: false,
+        email: '',
+        password: '',
+        error: null
+      }
+    },
+    methods: {
+      handle_login () {
+        this.$store.dispatch('userLogin', {email: this.email, password: this.password})
+          .then( res => {
+            this.$router.push('/')
+          })
+          .catch( err => {
+            this.error = err.response.data.error
+          })
+      }
+    },
+    components: {
+      'top-nav': topNav
     }
+  }
 </script>

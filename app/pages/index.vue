@@ -1,12 +1,12 @@
 <template>
-    <div class="columns is-fluid">
-        <div class="column">
-            <journal-nav></journal-nav>
-        </div>
-        <div class="column">
-            <nuxt />
-        </div>
+  <div class="columns is-fluid">
+    <div class="column">
+      <journal-nav></journal-nav>
     </div>
+    <div class="column">
+      <nuxt />
+    </div>
+  </div>
 
 </template>
 <style lang="scss" rel="stylesheet/scss">
@@ -24,8 +24,8 @@
       title: 'Home Page'
     },
     async data () {
-      let data = await request.get('http://localhost:3000/test')
-      console.log('wtfzz', data)
+      /*let data = await request.get('http://localhost:3000/test')
+      console.log('wtfzz', data)*/
       return {
         test: 'asdf'
       }

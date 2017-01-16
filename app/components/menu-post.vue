@@ -12,7 +12,6 @@
           :root="false"
           :last="post.children.length == (index + 1)"
         ></menu-post>
-        {{post.children.length}}
       </ul>
     </template>
     <template v-else-if="post.children">
@@ -25,20 +24,19 @@
             :root="false"
             :last="post.children.length == (index + 1)"
           ></menu-post>
-          {{post.children.length}}
         </ul>
       </li>
     </template>
     <template v-else>
       <li><a>{{post.title}}</a></li>
-      <a v-if="last">Add</a>
+      <li><a v-if="last">Add</a></li>
     </template>
-
   </div>
 </template>
 
 <script>
   export default {
+    name: 'menu-post',
     props: {
       post: {},
       root: {
@@ -46,7 +44,11 @@
       },
       last: {}
     },
-    name: 'menu-post'
+    computed: {
+      editable () {
+        return (this.$store.state.current_user.email != undefined)
+      }
+    }
   }
 </script>
 

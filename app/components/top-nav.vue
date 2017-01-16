@@ -18,28 +18,28 @@
 
         </div>
         <span class="nav-toggle" @click="handle_toggle_menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
     </nav>
 </template>
 
 <script>
-    export default {
-        props: ['expanded'],
-        computed: {
-            menuExpanded () {
-                return this.expanded ? 'is-active' : ''
-            }
-        },
-        methods: {
-            handle_toggle_menu () {
-                this.$emit('menu_toggled')
-            },
-            handle_logout () {
-                this.$store.dispatch("userLogout")
-            }
-        }
+  export default {
+    props: ['expanded'],
+    computed: {
+      menuExpanded () {
+        return this.expanded ? 'is-active' : ''
+      }
+    },
+    methods: {
+      handle_toggle_menu () {
+        this.$emit('menu_toggled')
+      },
+      handle_logout () {
+        this.$store.dispatch("userLogout")
+      }
     }
+  }
 </script>

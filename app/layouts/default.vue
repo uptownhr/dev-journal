@@ -8,24 +8,24 @@
 </template>
 
 <script type="text/ecmascript-6">
-    const topNav = require('~components/top-nav.vue')
+  const topNav = require('~components/top-nav.vue')
 
-    export default {
-        name: 'default-layout',
-        data: function () {
-            return {
-                expanded: false
-            }
-        },
-        methods: {
-            handle_toggle_menu () {
-                this.expanded = !this.expanded
-            }
-        },
-        components: {
-            'top-nav': topNav
-        }
+  export default {
+    name: 'default-layout',
+    data: function () {
+      return {
+        expanded: false
+      }
+    },
+    methods: {
+      handle_toggle_menu () {
+        this.expanded = !this.expanded
+      }
+    },
+    components: {
+      'top-nav': topNav
     }
+  }
 </script>
 
 <style lang="scss">
