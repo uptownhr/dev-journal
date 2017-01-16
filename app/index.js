@@ -10,7 +10,8 @@ require('./db')(app)
 app.use(bodyParser.json())
 
 
-const User = require('./models/User.js')
+const User = require('./models/User.js'),
+  Post = require('./models/Post.js')
 
 // POST /api/login to log in the user and add him to the req.session.authUser
 app.post('/api/login', co( function *(req, res) {

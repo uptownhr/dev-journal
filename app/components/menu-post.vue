@@ -29,7 +29,7 @@
     </template>
     <template v-else>
       <li><a>{{post.title}}</a></li>
-      <li><a v-if="last">Add</a></li>
+      <li v-if="editable"><a v-if="last" @click="handle_add">Add</a></li>
     </template>
   </div>
 </template>
@@ -47,6 +47,11 @@
     computed: {
       editable () {
         return (this.$store.state.current_user.email != undefined)
+      }
+    },
+    methods: {
+      handle_add () {
+        this.$store.dispatch('posts/getPosts')
       }
     }
   }

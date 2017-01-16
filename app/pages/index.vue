@@ -23,11 +23,12 @@
     head: {
       title: 'Home Page'
     },
-    async data () {
-      /*let data = await request.get('http://localhost:3000/test')
-      console.log('wtfzz', data)*/
-      return {
-        test: 'asdf'
+    fetch ({store, params}) {
+      return store.dispatch('posts/getPosts')
+    },
+    computed: {
+      posts () {
+        return this.$store.state.posts.posts
       }
     },
     components: {

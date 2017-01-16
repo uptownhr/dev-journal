@@ -15,7 +15,7 @@
   export default {
     computed: {
       posts () {
-        return this.$store.state.posts.posts
+        return this.$store.getters['posts/posts']
       }
     },
     components: {
