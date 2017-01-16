@@ -8,7 +8,7 @@
         </div>
         <div class="nav-center"></div>
         <div @click="handle_toggle_menu" :class="['nav-right', 'nav-menu', menuExpanded]">
-            <template v-if="$store.state.current_user.username">
+            <template v-if="$store.state.current_user.email">
                 <nuxt-link @click="handle_toggle_menu" to="/admin" class="nav-item">Admin</nuxt-link>
                 <a @click="handle_logout" class="nav-item">Logout</a>
             </template>

@@ -15,6 +15,10 @@
                         <input type="text" class="input" v-model="password">
                     </p>
 
+                    <div v-if="error" class="notification is-danger">
+                        {{error}}
+                    </div>
+
                     <p class="control">
                         <button class="button">Login</button>
                     </p>
@@ -32,14 +36,18 @@
             return {
                 expanded: false,
                 email: '',
-                password: ''
+                password: '',
+                error: null
             }
         },
         methods: {
             handle_login () {
-                this.$store.dispatch('userLogin', {username: this.email, password: this.password})
+                this.$store.dispatch('userLogin', {email: this.email, password: this.password})
                     .then( res => {
-                        this.$router.push('/')
+                        this.$router.push('/admin')
+                    })
+                    .catch( err => {
+                        this.error = err.response.data.error
                     })
             }
         },

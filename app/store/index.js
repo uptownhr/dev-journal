@@ -7,7 +7,6 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        logged_in: false,
         current_user: { }
     },
     mutations: {
@@ -19,10 +18,11 @@ const store = new Vuex.Store({
         nuxtServerInit ({ commit }, {req}) {
             if (req.session.current_user) commit('setCurrentUser', req.session.current_user )
         },
-        userLogin( {commit}, {username, password}) {
-            request
-                .post('/api/login', {username, password})
+        userLogin( {commit}, {email, password}) {
+            return request
+                .post('/api/login', {email, password})
                 .then( res => {
+                    console.log('ok')
                     commit('setCurrentUser', res.data)
 
                     return res.data
