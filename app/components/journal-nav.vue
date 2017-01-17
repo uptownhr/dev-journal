@@ -5,7 +5,7 @@
       :post="post"
       :last="posts.length == (index+1)"
     ></menu-post>
-    <a>+</a>
+    <a @click="handle_add()">+ root</a>
   </aside>
 </template>
 
@@ -15,11 +15,21 @@
   export default {
     computed: {
       posts () {
-        return this.$store.getters['posts/posts']
+        let posts = this.$store.getters['posts/root']
+
+        console.log('root', posts)
+
+        return posts
       }
     },
     components: {
       'menu-post': menuPost
+    },
+    methods: {
+      handle_add (parent_id) {
+        console.log(parent_id)
+        this.$store.dispatch('posts/createPost', {parent_id})
+      }
     }
   }
 </script>

@@ -12,6 +12,7 @@
           :root="false"
           :last="post.children.length == (index + 1)"
         ></menu-post>
+        <a @click="handle_add(post._id)">+ {{post._id}}</a>
       </ul>
     </template>
     <template v-else-if="post.children">
@@ -24,12 +25,13 @@
             :root="false"
             :last="post.children.length == (index + 1)"
           ></menu-post>
+          <a @click="handle_add(post._id)">+ {{post._id}} </a>
         </ul>
       </li>
     </template>
     <template v-else>
-      <li><a>{{post.title}}</a></li>
-      <li v-if="editable"><a v-if="last" @click="handle_add">Add</a></li>
+      <li><a>{{post.title}} - {{post._id}} {{post}}</a></li>
+      <li v-if="editable"><a v-if="last" @click="handle_add(post._id)">Add?</a></li>
     </template>
   </div>
 </template>
@@ -50,8 +52,9 @@
       }
     },
     methods: {
-      handle_add () {
-        this.$store.dispatch('posts/getPosts')
+      handle_add (parent_id) {
+        console.log(parent_id)
+        this.$store.dispatch('posts/createPost', {parent_id})
       }
     }
   }

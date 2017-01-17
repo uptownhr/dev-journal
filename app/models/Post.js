@@ -4,7 +4,8 @@ const mongoose = require("mongoose"),
 const postSchema = Schema({
   title: {type: String, trim: true},
   body: {type: String, trim: true},
-  children: [{type: Schema.Types.ObjectId, ref: 'Post'}]
+  children: [{type: Schema.Types.ObjectId, ref: 'Post'}],
+  parent_id: {type: Schema.Types.ObjectId, ref: 'Post'}
 })
 
 module.exports = mongoose.model('Post', postSchema)

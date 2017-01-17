@@ -32,6 +32,28 @@ app.post('/api/logout', function (req, res) {
   res.json({ ok: true })
 })
 
+
+app.post('/api/post/create', co( function *(req,res){
+  let post = yield new Post( req.body ).save()
+
+  if (req.body.parent_id) {
+    console.log(req.body)
+    let parent = yield Post.findOne({_id: req.body.parent_id})
+    console.log(parent)
+    parent.children.addToSet(post._id)
+    parent.save()
+  }
+
+  res.json(post)
+}))
+
+app.get('/api/posts', co( function *(req,res) {
+  let posts = yield Post.find()
+
+  res.json(posts)
+}))
+
+
 app.get('/test', (req, res) => {
   res.json('from server')
 })
