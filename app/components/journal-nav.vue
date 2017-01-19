@@ -1,6 +1,7 @@
 <template>
   <aside class="menu">
     <menu-post
+      :key="post._id"
       v-for="(post,index) in posts"
       :post="post"
       :last="posts.length == (index+1)"

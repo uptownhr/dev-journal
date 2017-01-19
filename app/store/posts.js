@@ -1,6 +1,7 @@
 //import Vue from 'Vue'
 
 import request from 'axios'
+import Vue from 'vue'
 
 const api = function (path) {
 
@@ -19,18 +20,24 @@ const api = function (path) {
 
 
 export const state = {
-  posts: [],
-  _byId: {}
+  posts: ['test'],
+  _byId: {
+    test: {
+      _id: 'test',
+      title: 'sample',
+      children: []
+    }
+  },
+  root: []
 }
 
 export const getters = {
   root (state, getters) {
-    console.log('root')
-    return getters.posts.filter( p => !p.parent_id )
+    //return getters.posts.filter( p => !p.parent_id )
+    return state.root.filter( p => !p.parent_id )
   },
   posts (state) {
-    console.log('posts')
-    return state.posts.map ( id => {
+    let posts = state.posts.map ( id => {
       let post = state._byId[id]
 
       if (post.children.length > 0) {
@@ -43,6 +50,8 @@ export const getters = {
 
       return post
     } )
+
+    return posts
   }
 }
 
@@ -53,6 +62,9 @@ export const mutations = {
     posts.forEach( p => {
       state._byId[p._id] = p
     })
+
+    state.root = populate(state, posts)
+
   },
 
   setPost (state, post) {
@@ -61,10 +73,11 @@ export const mutations = {
 
     if (post.parent_id) {
       let parent = state._byId[post.parent_id]
-      console.log(parent)
+
       parent.children.push(post)
     }
 
+    state.root = populate(state, state.posts.map( id => state._byId[id] ))
   }
 }
 
@@ -76,10 +89,6 @@ export const actions = {
         commit('setPosts', res.data)
         return res.data
       })
-
-
-    let posts = getPosts()
-    console.log(posts)
   },
 
   createPost ({commit}, {parent_id}) {
@@ -94,29 +103,16 @@ export const actions = {
   }
 }
 
+function populate (state, posts) {
+  return posts.map ( post => {
+    if (post.children.length > 0) {
+      post.children = post.children.map( c => {
+        if ( typeof c == 'object' ) return state._byId[c._id]
 
-
-function createPost () {
-  return {
-    title: '',
-    body: '',
-    parent_id: null
-  }
-}
-
-function getPosts () {
-  return [
-    {
-      id: 1,
-      title: 'post1',
-      body: 'post 1 body',
-      parent_id: null
-    },
-    {
-      id: 2,
-      title: 'post2',
-      body: 'post 2 body',
-      parent_id: 1
+        return state._byId[c]
+      })
     }
-  ]
+
+    return post
+  } )
 }

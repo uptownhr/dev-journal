@@ -7,12 +7,14 @@
 
       <ul v-if="post.children" class="menu-list">
         <menu-post
+          :key="child._id"
           v-for="(child, index) in post.children"
           :post="child"
           :root="false"
           :last="post.children.length == (index + 1)"
         ></menu-post>
         <a @click="handle_add(post._id)">+ {{post._id}}</a>
+        childrens: {{post.children.length}}
       </ul>
     </template>
     <template v-else-if="post.children">
@@ -20,12 +22,14 @@
         <a>{{post.title}}</a>
         <ul class="menu-list">
           <menu-post
+            :key="child._id"
             v-for="(child, index) in post.children"
             :post="child"
             :root="false"
             :last="post.children.length == (index + 1)"
           ></menu-post>
           <a @click="handle_add(post._id)">+ {{post._id}} </a>
+          childrens: {{post.children.length}}
         </ul>
       </li>
     </template>
@@ -40,7 +44,9 @@
   export default {
     name: 'menu-post',
     props: {
-      post: {},
+      post: {
+        children: []
+      },
       root: {
         default: true
       },
@@ -48,6 +54,7 @@
     },
     computed: {
       editable () {
+        console.log('happening?')
         return (this.$store.state.current_user.email != undefined)
       }
     },
