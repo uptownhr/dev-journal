@@ -4,6 +4,12 @@ export const state = {
   current_user: { }
 }
 
+export const getters = {
+  loggedIn (state) {
+    return state.current_user._id != undefined
+  }
+}
+
 export  const mutations = {
   setCurrentUser (state, user) {
     state.current_user = user

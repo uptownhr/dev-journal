@@ -31,6 +31,9 @@ export const state = {
 }
 
 export const getters = {
+  root (state,getters) {
+    return getters.posts.filter( p => p.parent_id == null)
+  },
   posts (state) {
     let posts = state.posts.map ( id => {
       let post = state._byId[id]
@@ -47,6 +50,10 @@ export const getters = {
     } )
 
     return posts
+  },
+  latest (state, getters) {
+    let posts = getters.posts
+    return posts[posts.length-1]
   }
 }
 

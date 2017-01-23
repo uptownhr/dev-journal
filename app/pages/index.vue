@@ -4,7 +4,7 @@
       <journal-nav></journal-nav>
     </div>
     <div class="column">
-      <nuxt />
+      {{latest}}
     </div>
   </div>
 
@@ -14,9 +14,9 @@
 </style>
 
 <script type="text/ecmascript-6">
+  import { mapGetters } from 'vuex'
   import request from 'axios'
   import journalNav from '~components/journal-nav.vue'
-
 
   export default {
     name: 'index',
@@ -27,9 +27,7 @@
       return store.dispatch('posts/getPosts')
     },
     computed: {
-      posts () {
-        return this.$store.state.posts.posts
-      }
+      ...mapGetters('posts', ['latest'])
     },
     components: {
       'journal-nav': journalNav

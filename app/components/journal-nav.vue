@@ -16,7 +16,7 @@
   export default {
     computed: {
       posts () {
-        let posts = this.$store.getters['posts/posts']
+        let posts = this.$store.getters['posts/root']
         return posts
       }
     },
