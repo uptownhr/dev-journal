@@ -27,15 +27,10 @@ export const state = {
       title: 'sample',
       children: []
     }
-  },
-  root: []
+  }
 }
 
 export const getters = {
-  root (state, getters) {
-    //return getters.posts.filter( p => !p.parent_id )
-    return state.root.filter( p => !p.parent_id )
-  },
   posts (state) {
     let posts = state.posts.map ( id => {
       let post = state._byId[id]
@@ -60,25 +55,24 @@ export const mutations = {
     state.posts = posts.map( p => p._id )
 
     posts.forEach( p => {
-      state._byId[p._id] = p
+      setPost(state, p)
     })
-
-    state.root = populate(state, posts)
-
   },
 
   setPost (state, post) {
     state.posts.push( post._id )
-    state._byId[post._id] = post
+    setPost(state, post)
 
     if (post.parent_id) {
       let parent = state._byId[post.parent_id]
 
       parent.children.push(post)
     }
-
-    state.root = populate(state, state.posts.map( id => state._byId[id] ))
   }
+}
+
+function setPost(state, post) {
+  Vue.set(state._byId, post._id, post)
 }
 
 export const actions = {
@@ -92,7 +86,6 @@ export const actions = {
   },
 
   createPost ({commit}, {parent_id}) {
-    console.log(parent_id)
     return request
       .post('/api/post/create', {parent_id, title: 'test'})
       .then( res => {
