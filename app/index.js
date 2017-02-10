@@ -15,9 +15,8 @@ const User = require('./models/User.js'),
 
 // POST /api/login to log in the user and add him to the req.session.authUser
 app.post('/api/login', co( function *(req, res) {
-  console.log('wtf')
   let user = yield User.findOne({email: req.body.email})
-  console.log(req.body, user)
+
   if (user && user.password == req.body.password) {
     req.session.current_user = user
     return res.json( user )

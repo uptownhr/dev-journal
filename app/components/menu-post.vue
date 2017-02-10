@@ -1,9 +1,7 @@
 <template>
   <div>
     <template v-if="root">
-      <p class="menu-label">
-        {{post.title}}
-      </p>
+      <router-link :to="`/post/${post.title}/${post._id}`" class="menu-label">{{post.title}}</router-link>
 
       <ul v-if="post.children" class="menu-list">
         <menu-post
